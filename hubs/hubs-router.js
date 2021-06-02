@@ -5,19 +5,19 @@ const express = require('express');
 const router = express.Router();
 
 //GET ('SELECT')
-router.get("/", (req, res) => {
-  db
-    .select('*').from('posts') 
-    .then(users => {
-      if (users.length) {
-       res.json(users);
-      } else {
-        res.status(404).json({ message: 'Could not find user with given id.' })
-      })
-      .catch (err => {
-        res.status(500).json({ message: 'Failed to get user' });
-      });
-    });
+// router.get("/", (req, res) => {
+//   db
+//     .select('*').from('posts') 
+    // .then(users => {
+    //   if (users.length) {
+    //    res.json(users);
+    //   } else {
+    //     res.status(404).json({ message: 'Could not find user with given id.' });
+    //   })
+    // .catch (err => {
+    //   res.status(500).json({ message: 'Failed to get user' });
+    // });
+    // });
 
 router.get('/:id', (req, res) => {
   db('posts')
@@ -35,6 +35,7 @@ router.post('/', (req, res) => {
 const postData = req.body;
 db('posts')
   .insert(postData, 'id')
+});
 
 //PUT
 router.put('/:id', (req, res) => {
@@ -42,11 +43,13 @@ const changes = req.body;
 db('posts')
   .where({ id: req.params.id }) 
   .update(changes)
+});
 
 //DELETE
 router.delete('/:id', (req, res) => {
 db('posts')
   .where({ id: req.params.id })
   .del()
+});
 
 module.exports = router;
