@@ -1,8 +1,11 @@
 const express = require("express");
+const helmet = require('helmet');
 
-const hubsRouter = require("../hubs/hubs-router");
+const hubsRouter = require("../hubs/hubs-router.js");
+const db = require('../data/connection');
 
 const server = express();
+server.use(helmet())
 server.use(express.json());
 
 server.get('/', (req, res) => {
